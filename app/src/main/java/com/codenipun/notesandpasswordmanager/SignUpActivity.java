@@ -13,10 +13,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
     ActivitySignUpBinding binding;
     FirebaseAuth mAuth;
+    FirebaseDatabase mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,10 +28,12 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(view);
 
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
 
         binding.SignupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String name = binding.nameTxt.getText().toString();
                 String email = binding.EmailTxt.getText().toString();
                 String password = binding.passwordTxt.getText().toString();
 
@@ -37,7 +42,11 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(SignUpActivity.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
+                            String id = task.getResult().getUser().getUid();
+                            Users user = new Users(id, name, email, password);
+                            mDatabase.getReference().child("Users").child(id).setValue(user);
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                            startActivity(intent);
                         }else{
                             Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
