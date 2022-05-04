@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Notes and password manager</string>
+    <string name="shr_hint_username">Username</string>
+    <string name="shr_hint_password">Password</string>
+</resources>

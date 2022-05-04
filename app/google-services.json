@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "162701303230",
+    "project_id": "nots-and-paswrd-mngr",
+    "storage_bucket": "nots-and-paswrd-mngr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162701303230:android:f9b21f50ff7e6c1e69adef",
+        "android_client_info": {
+          "package_name": "com.codenipun.notesandpasswordmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162701303230-c5rkcn8pr5vrnkn10u6edj78q5a79q9d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codenipun.notesandpasswordmanager",
+            "certificate_hash": "a2c9775ab81a186936a1f0b86894e575b170a369"
+          }
+        },
+        {
+          "client_id": "162701303230-o1vm0le2vl619ij5u456mg0jf3khti6f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIYkR3J3NoF1c9_Mu7KVfGSFsyjcsGZHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162701303230-o1vm0le2vl619ij5u456mg0jf3khti6f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
