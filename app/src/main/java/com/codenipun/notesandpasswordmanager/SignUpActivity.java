@@ -27,6 +27,7 @@ public class SignUpActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        getSupportActionBar().hide();
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
 
@@ -47,10 +48,10 @@ public class SignUpActivity extends AppCompatActivity {
                             mDatabase.getReference().child("Users").child(id).setValue(user);
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finishAffinity();
                         }else{
                             Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
             }
