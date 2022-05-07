@@ -3,9 +3,11 @@ package com.codenipun.notesandpasswordmanager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.codenipun.notesandpasswordmanager.databinding.ActivitySignUpBinding;
@@ -19,7 +21,7 @@ public class SignUpActivity extends AppCompatActivity {
     ActivitySignUpBinding binding;
     FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
-
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,17 +32,38 @@ public class SignUpActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("signing-up");
+        progressDialog.setMessage("Creating your account.....");
 
         binding.SignupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = binding.nameTxt.getText().toString();
-                String email = binding.EmailTxt.getText().toString();
-                String password = binding.passwordTxt.getText().toString();
 
+                String name = binding.nameTxt.getText().toString().trim();
+                String email = binding.EmailTxt.getText().toString().trim();
+                String password = binding.passwordTxt.getText().toString().trim();
+
+                if(binding.nameTxt.getText().toString().isEmpty()){
+                    binding.nameTxt.setError("Enter your Name");
+                    return;
+                }
+                if(binding.EmailTxt.getText().toString().isEmpty()){
+                    binding.EmailTxt.setError("Enter your Email");
+                    return;
+                }
+                if(binding.passwordTxt.getText().toString().isEmpty()){
+                    binding.passwordTxt.setError("Enter your password");
+                    return;
+                }if(password.length()<6){
+                    binding.passwordTxt.setError("Too Small");
+                    return;
+                }
+                progressDialog.show();
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
                         if(task.isSuccessful()){
                             Toast.makeText(SignUpActivity.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
                             String id = task.getResult().getUser().getUid();
@@ -56,6 +79,12 @@ public class SignUpActivity extends AppCompatActivity {
                 });
             }
         });
-
+        binding.createAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
