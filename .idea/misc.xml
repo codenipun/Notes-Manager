@@ -4,9 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/drawable/ic_rectangle_1.xml" value="0.2703125" />
+        <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_create_note.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_forget_passowrd.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_forget_password.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_notes.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_notes.xml" value="0.264" />
         <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_password.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_sign_up.xml" value="0.264" />
         <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_splash_screen.xml" value="0.24010416666666667" />

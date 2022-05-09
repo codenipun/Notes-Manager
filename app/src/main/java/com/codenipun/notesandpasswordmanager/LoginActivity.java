@@ -62,15 +62,20 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         if(task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this, "Signed-in Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            checkEmailVerification();
+
                         }else{
                             Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+            }
+        });
+
+        binding.forgetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, ForgetPassword.class));
             }
         });
 
@@ -81,5 +86,16 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private void checkEmailVerification(){
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        if(mUser.isEmailVerified()==true){
+            Toast.makeText(LoginActivity.this, "Signed-in Successfully", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }else{
+            Toast.makeText(LoginActivity.this, "Verify your Email first", Toast.LENGTH_SHORT).show();
+        }
     }
 }

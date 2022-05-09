@@ -4,13 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class PasswordActivity extends AppCompatActivity {
+public class createNoteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_password);
-
-        getSupportActionBar().setTitle("Password Manager");
+        setContentView(R.layout.activity_create_note);
     }
 }

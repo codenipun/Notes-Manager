@@ -4,15 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import com.codenipun.notesandpasswordmanager.databinding.ActivitySplashScreenBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class splashScreen extends AppCompatActivity {
+    ActivitySplashScreenBinding binding;
     FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         mAuth = FirebaseAuth.getInstance();
         getSupportActionBar().hide();
 

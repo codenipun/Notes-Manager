@@ -15,13 +15,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
     ActivitySignUpBinding binding;
     FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
-    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("signing-up");
-        progressDialog.setMessage("Creating your account.....");
+
 
         binding.SignupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,19 +57,15 @@ public class SignUpActivity extends AppCompatActivity {
                     binding.passwordTxt.setError("Too Small");
                     return;
                 }
-                progressDialog.show();
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
                         if(task.isSuccessful()){
                             Toast.makeText(SignUpActivity.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
                             String id = task.getResult().getUser().getUid();
                             Users user = new Users(id, name, email, password);
                             mDatabase.getReference().child("Users").child(id).setValue(user);
-                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finishAffinity();
+                            sendEmailVerification();
                         }else{
                             Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -86,5 +80,24 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void sendEmailVerification(){
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        if(mUser!=null){
+            mUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Toast.makeText(SignUpActivity.this, "Verification Email is send, Verify and Login again", Toast.LENGTH_LONG).show();
+                    mAuth.signOut();
+                    finish();
+                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }else{
+            Toast.makeText(SignUpActivity.this, "Failed to send verification email", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
