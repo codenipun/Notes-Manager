@@ -8,17 +8,89 @@
     android:backgroundTint="#E3E0E0"
     tools:context=".SignUpActivity">
 
+    <!--    <LinearLayout-->
+<!--        android:id="@+id/linearLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="30dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/materialTextView"-->
+<!--        app:layout_constraintVertical_bias="0.074">-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/nameTxt"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:background="@drawable/ic_rectangle_1"-->
+<!--            android:gravity="center|left"-->
+<!--            android:hint="Name"-->
+<!--            android:paddingLeft="10dp"-->
+<!--            android:textSize="13dp" />-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/EmailTxt"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:background="@drawable/ic_rectangle_1"-->
+<!--            android:gravity="center|left"-->
+<!--            android:hint="Email"-->
+<!--            android:paddingLeft="10dp"-->
+<!--            android:textSize="13dp" />-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/passwordTxt"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:background="@drawable/ic_rectangle_1"-->
+<!--            android:gravity="center|left"-->
+<!--            android:hint="Password"-->
+<!--            android:paddingLeft="10dp"-->
+<!--            android:textSize="13dp" />-->
+
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/SignupBtn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:backgroundTint="#000000"-->
+<!--            android:text="Create Account"-->
+<!--            android:textAllCaps="false"-->
+<!--            app:cornerRadius="20dp"-->
+<!--            tools:layout_editor_absoluteX="15dp">-->
+
+<!--        </com.google.android.material.button.MaterialButton>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/createAccount"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Already a member? Login" />-->
+<!--    </LinearLayout>-->
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView"
-        app:layout_constraintVertical_bias="0.335">
+        app:layout_constraintVertical_bias="0.159">
+
         <EditText
             android:id="@+id/nameTxt"
             android:layout_width="wrap_content"
@@ -26,9 +98,9 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/ic_rectangle_1"
             android:gravity="center|left"
-            android:hint="Name"
+            android:hint="Enter your name"
             android:paddingLeft="10dp"
-            android:textSize="13dp" />
+            android:textSize="13dp"></EditText>
 
         <EditText
             android:id="@+id/EmailTxt"
@@ -37,7 +109,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/ic_rectangle_1"
             android:gravity="center|left"
-            android:hint="Email"
+            android:hint="Enter your Email"
             android:paddingLeft="10dp"
             android:textSize="13dp" />
 
@@ -48,16 +120,16 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/ic_rectangle_1"
             android:gravity="center|left"
-            android:hint="Password"
+            android:hint="Enter Password"
             android:paddingLeft="10dp"
             android:textSize="13dp" />
 
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/SignupBtn"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
             android:backgroundTint="#000000"
             android:text="Create Account"
             android:textAllCaps="false"

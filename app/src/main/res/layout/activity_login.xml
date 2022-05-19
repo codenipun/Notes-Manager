@@ -60,16 +60,15 @@
             android:hint="Password"
             android:paddingLeft="10dp"
             android:textSize="13dp" />
+
         <TextView
             android:id="@+id/forgetPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Forget Password ?"
-            android:layout_gravity="left"
-            android:paddingLeft="10dp"
             android:clickable="true"
             android:focusable="true"
-            >
+            android:paddingLeft="10dp"
+            android:text="Forget Password ?">
 
         </TextView>
 
