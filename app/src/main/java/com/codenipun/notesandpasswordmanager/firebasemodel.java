@@ -1,14 +1,14 @@
 package com.codenipun.notesandpasswordmanager;
 
-public class firebaseModel {
-    String title, content;
+public class firebasemodel {
+    private String title;
+    private String content;
 
-    public firebaseModel(String title, String content) {
+    public firebasemodel(String title, String content) {
         this.title = title;
         this.content = content;
     }
-
-    public firebaseModel(){}
+    public firebasemodel(){}
 
     public String getTitle() {
         return title;

@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NotesAndPasswordManager">
         <activity
+            android:name=".testingActivity"
+            android:exported="false" />
+        <activity
             android:name=".createNoteActivity"
             android:exported="false" />
         <activity

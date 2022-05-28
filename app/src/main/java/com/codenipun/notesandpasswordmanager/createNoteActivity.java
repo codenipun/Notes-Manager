@@ -25,7 +25,7 @@ import java.util.Map;
 public class createNoteActivity extends AppCompatActivity {
     ActivityCreateNoteBinding binding;
     FirebaseAuth mAuth;
-    FirebaseUser mUser;
+    FirebaseUser fUser;
     FirebaseFirestore mFirestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class createNoteActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
 
         getSupportActionBar().setTitle("Create New Note");
 //        setSupportActionBar(binding.toolBarOfEditText);
@@ -52,7 +52,7 @@ public class createNoteActivity extends AppCompatActivity {
                     Toast.makeText(createNoteActivity.this, "Both fields are required", Toast.LENGTH_SHORT).show();
                 }else{
                     // To save the data on cloud firestore first we have to take the object of document reference bcoz we store data in document type in firestore
-                    DocumentReference documentReference = mFirestore.collection("notes").document(mUser.getUid()).collection("MyNotes").document();
+                    DocumentReference documentReference = mFirestore.collection("notes").document(fUser.getUid()).collection("myNotes").document();
 
                     Map<String, Object> note = new HashMap<>();
 

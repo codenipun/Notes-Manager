@@ -6,52 +6,50 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/noteCard"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:elevation="5dp"
         app:cardCornerRadius="5dp"
 
         >
 
         <LinearLayout
+            android:id="@+id/note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
+
                 <TextView
+                    android:id="@+id/noteTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/noteTitle"
-                    android:text="This is your title"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:padding="10dp"
                     android:layout_weight="1"
-                    >
-                </TextView>
+                    android:padding="10dp"
+                    android:text="This is your title"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"></TextView>
+
                 <ImageView
                     android:id="@+id/menuPopUpBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_baseline_more_vert_24"
                     android:layout_weight="0"
-                    >
-                </ImageView>
+                    android:src="@drawable/ic_baseline_more_vert_24"></ImageView>
             </LinearLayout>
+
             <TextView
                 android:id="@+id/noteContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="this is the content of notes"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:padding="10dp"
-                >
+                android:text="this is the content of notes"
+                android:textColor="@color/black"
+                android:textSize="15sp">
 
             </TextView>
         </LinearLayout>

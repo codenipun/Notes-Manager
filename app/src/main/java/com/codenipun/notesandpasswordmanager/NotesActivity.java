@@ -8,21 +8,35 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codenipun.notesandpasswordmanager.databinding.ActivityNotesBinding;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.api.Distribution;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import org.w3c.dom.Text;
 
 public class NotesActivity extends AppCompatActivity {
 
-    ActivityNotesBinding binding;
+//    ActivityNotesBinding binding;
+    FloatingActionButton addNotes;
     FirebaseAuth mAuth;
     FirebaseUser fUser;
     FirebaseFirestore fFirestore;
@@ -31,42 +45,88 @@ public class NotesActivity extends AppCompatActivity {
 
     // we are going to use firebase recycler adapter for fetching data from firestore to our recyclerview
 
-    FirestoreRecyclerAdapter<firebaseModel, noteViewHolder> notesAdapter;
+    FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder> notesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityNotesBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+//        binding = ActivityNotesBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.activity_notes);
+//        View view = binding.getRoot();
+//        setContentView(view);
         getSupportActionBar().setTitle("Notes Manager");
+
+        addNotes = findViewById(R.id.addNotes);
 
         mAuth = FirebaseAuth.getInstance();
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         fFirestore = FirebaseFirestore.getInstance();
 
-        binding.addNotes.setOnClickListener(new View.OnClickListener() {
+        addNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(NotesActivity.this, createNoteActivity.class);
                 startActivity(intent);
             }
         });
+
+
+
+        // when user come to this activity we have to load data for that particular data and for that we use query
+
+        Query query = fFirestore.collection("notes").document(fUser.getUid()).collection("myNotes").orderBy("title", Query.Direction.ASCENDING);
+
+        FirestoreRecyclerOptions<firebasemodel> allUserNotes = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query,firebasemodel.class).build();
+
+        notesAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allUserNotes) {
+            @Override
+            protected void onBindViewHolder(@NonNull NoteViewHolder holder, int position, @NonNull firebasemodel model) {
+                holder.notetitle.setText(model.getTitle());
+                holder.notecontent.setText(model.getContent());
+            }
+
+            @NonNull
+            @Override
+            public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notes_layout, parent, false);
+                return new NoteViewHolder(view);
+            }
+        };
+
+
+        mRecyclerView = findViewById(R.id.notesRecyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
+        mRecyclerView.setAdapter(notesAdapter);
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        notesAdapter.startListening();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(notesAdapter!=null){
+            notesAdapter.stopListening();
+        }
+    }
+
+    public class NoteViewHolder extends RecyclerView.ViewHolder{
+        private TextView notetitle;
+        private TextView notecontent;
+        LinearLayout mnote;
 
 
-
-
-
-
-
-
-
-
-
-
-
+        public NoteViewHolder(@NonNull View itemView) {
+            super(itemView);
+            notetitle = itemView.findViewById(R.id.noteTitle);
+            notecontent = itemView.findViewById(R.id.noteContent);
+            mnote = itemView.findViewById(R.id.note);
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
