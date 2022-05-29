@@ -1,12 +1,14 @@
 package com.codenipun.notesandpasswordmanager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -32,6 +34,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class NotesActivity extends AppCompatActivity {
 
@@ -79,10 +85,23 @@ public class NotesActivity extends AppCompatActivity {
         FirestoreRecyclerOptions<firebasemodel> allUserNotes = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query,firebasemodel.class).build();
 
         notesAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allUserNotes) {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             protected void onBindViewHolder(@NonNull NoteViewHolder holder, int position, @NonNull firebasemodel model) {
+
+                int colourCode = getRandomColor();
+
+                holder.mnote.setBackgroundColor(holder.itemView.getResources().getColor(colourCode, null));
+
                 holder.notetitle.setText(model.getTitle());
                 holder.notecontent.setText(model.getContent());
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(NotesActivity.this, "item clicked", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @NonNull
@@ -148,5 +167,24 @@ public class NotesActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private int getRandomColor(){
+        List<Integer> colour = new ArrayList<>();
+        colour.add(R.color.color1);
+        colour.add(R.color.color2);
+        colour.add(R.color.color3);
+        colour.add(R.color.color4);
+        colour.add(R.color.color5);
+        colour.add(R.color.color6);
+        colour.add(R.color.color7);
+        colour.add(R.color.color8);
+        colour.add(R.color.color9);
+        colour.add(R.color.color10);
+
+        Random random = new Random();
+
+        int number = random.nextInt(colour.size());
+        return colour.get(number);
     }
 }
