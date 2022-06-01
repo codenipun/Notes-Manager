@@ -28,6 +28,8 @@ import android.widget.Toast;
 import com.codenipun.notesandpasswordmanager.databinding.ActivityNotesBinding;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.api.Distribution;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,7 +53,7 @@ public class NotesActivity extends AppCompatActivity {
     FirebaseFirestore fFirestore;
     RecyclerView mRecyclerView;
     StaggeredGridLayoutManager staggeredGridLayoutManager;
-
+    TextView emptyText;
     // we are going to use firebase recycler adapter for fetching data from firestore to our recyclerview
 
     FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder> notesAdapter;
@@ -70,7 +72,7 @@ public class NotesActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         fFirestore = FirebaseFirestore.getInstance();
-
+        emptyText = findViewById(R.id.emptyText);
         addNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +87,8 @@ public class NotesActivity extends AppCompatActivity {
 
         Query query = fFirestore.collection("notes").document(fUser.getUid()).collection("myNotes").orderBy("title", Query.Direction.ASCENDING);
 
+
+
         FirestoreRecyclerOptions<firebasemodel> allUserNotes = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query,firebasemodel.class).build();
 
         notesAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allUserNotes) {
@@ -96,6 +100,8 @@ public class NotesActivity extends AppCompatActivity {
 
                 int colourCode = getRandomColor();
 
+                String DocId = notesAdapter.getSnapshots().getSnapshot(position).getId(); // We use this docid to delete, update a particular note
+
                 holder.mnote.setBackgroundColor(holder.itemView.getResources().getColor(colourCode, null));
 
                 holder.notetitle.setText(model.getTitle());
@@ -104,9 +110,14 @@ public class NotesActivity extends AppCompatActivity {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        // When we send user from this activity to note detail activity we also need to send data of particular note to notedetail activity
+
                         Intent intent = new Intent(view.getContext(), noteDetailActivity.class);
+                        intent.putExtra("title", model.getTitle());
+                        intent.putExtra("content", model.getContent());
+                        intent.putExtra("noteId", DocId);
+
                         view.getContext().startActivity(intent);
-                        Toast.makeText(NotesActivity.this, "item clicked", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -119,6 +130,9 @@ public class NotesActivity extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 Intent intent = new Intent(view.getContext(), editNoteActivity.class);
+                                intent.putExtra("title", model.getTitle());
+                                intent.putExtra("content", model.getContent());
+                                intent.putExtra("noteId", DocId);
                                 view.getContext().startActivity(intent);
 
                                 return false;
@@ -127,7 +141,19 @@ public class NotesActivity extends AppCompatActivity {
                         popupmenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
-                                Toast.makeText(view.getContext(), "Note Deleted Successfully", Toast.LENGTH_SHORT).show();
+
+                                DocumentReference documentReference = fFirestore.collection("notes").document(fUser.getUid()).collection("myNotes").document(DocId);
+                                documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(view.getContext(), "Note Deleted Successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(view.getContext(), "Failed to Delete", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                                 return false;
                             }
                         });
@@ -146,6 +172,7 @@ public class NotesActivity extends AppCompatActivity {
 
 
         mRecyclerView = findViewById(R.id.notesRecyclerView);
+
         mRecyclerView.setHasFixedSize(true);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);

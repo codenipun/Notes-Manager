@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".createNoteActivity">
 
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBarOfEditText"
         android:layout_width="match_parent"
@@ -53,4 +55,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:maxImageSize="40dp"
         app:srcCompat="@drawable/ic_baseline_check_24" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/progressBarOfCreateNote"
+        android:visibility="invisible"
+        ></ProgressBar>
 </RelativeLayout>

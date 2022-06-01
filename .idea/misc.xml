@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/drawable/ic_rectangle_1.xml" value="0.2703125" />
+        <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/drawable/strokefortitle.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_create_note.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_edit_note.xml" value="0.25" />
         <entry key="..\:/Users/91819/AndroidStudioProjects/Notesandpasswordmanager/app/src/main/res/layout/activity_forget_passowrd.xml" value="0.25416666666666665" />

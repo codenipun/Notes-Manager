@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.codenipun.notesandpasswordmanager.databinding.ActivityCreateNoteBinding;
@@ -27,6 +28,7 @@ public class createNoteActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser fUser;
     FirebaseFirestore mFirestore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,7 @@ public class createNoteActivity extends AppCompatActivity {
                 if(title.isEmpty() || content.isEmpty()){
                     Toast.makeText(createNoteActivity.this, "Both fields are required", Toast.LENGTH_SHORT).show();
                 }else{
+                    binding.progressBarOfCreateNote.setVisibility(view.VISIBLE);
                     // To save the data on cloud firestore first we have to take the object of document reference bcoz we store data in document type in firestore
                     DocumentReference documentReference = mFirestore.collection("notes").document(fUser.getUid()).collection("myNotes").document();
 
@@ -63,12 +66,14 @@ public class createNoteActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(createNoteActivity.this, "Note Created Successfully", Toast.LENGTH_SHORT).show();
+                            binding.progressBarOfCreateNote.setVisibility(view.INVISIBLE);
                             startActivity(new Intent(createNoteActivity.this, NotesActivity.class));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(createNoteActivity.this, "Failed to Create Note", Toast.LENGTH_SHORT).show();
+                            binding.progressBarOfCreateNote.setVisibility(view.INVISIBLE);
                         }
                     });
                 }

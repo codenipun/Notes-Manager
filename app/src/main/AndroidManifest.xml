@@ -13,22 +13,20 @@
         android:theme="@style/Theme.NotesAndPasswordManager">
         <activity
             android:name=".noteDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity
             android:name=".editNoteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".testingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+
         <activity
             android:name=".createNoteActivity"
             android:exported="false" />
         <activity
             android:name=".ForgetPassword"
             android:exported="false" />
-        <activity
-            android:name=".ForgetPassowrd"
-            android:exported="false" />
+
         <activity
             android:name=".splashScreen"
             android:exported="true">

@@ -27,10 +27,12 @@
 
                 <TextView
                     android:id="@+id/noteTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="10dp"
+                    android:background="@drawable/strokefortitle"
+                    android:padding="5dp"
+                    android:layout_margin="5dp"
                     android:text="This is your title"
                     android:textColor="@color/black"
                     android:textSize="20sp"></TextView>
@@ -50,8 +52,9 @@
                 android:padding="10dp"
                 android:text="this is the content of notes"
                 android:textColor="@color/black"
-                android:textSize="15sp">
-
+                android:textSize="15sp"
+                android:ellipsize="end"
+                android:maxLines="5">
             </TextView>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
