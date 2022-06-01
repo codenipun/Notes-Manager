@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".createNoteActivity">
+    tools:context=".noteDetailActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolBarOfEditText"
+        android:id="@+id/toolBarOfNoteDetail"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white">
 
         <EditText
-            android:id="@+id/titleOfNote"
+            android:id="@+id/titleOfNoteDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Title"
@@ -24,21 +24,21 @@
             app:boxBackgroundMode="none"></EditText>
     </androidx.appcompat.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/contentOfNote"
+    <TextView
+        android:id="@+id/contentOfNoteDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolBarOfEditText"
+        android:layout_below="@id/toolBarOfNoteDetail"
         android:background="#E3E0E0"
         android:gravity="top|left"
-        android:hint="Notes"
         android:padding="15dp"
+        android:text="Title Displayed here"
         android:textSize="17sp">
 
-    </EditText>
+    </TextView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/saveNote"
+        android:id="@+id/gotoEditNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -52,5 +52,5 @@
         app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
         app:maxImageSize="40dp"
-        app:srcCompat="@drawable/ic_baseline_check_24" />
+        app:srcCompat="@drawable/ic_baseline_edit_24" />
 </RelativeLayout>

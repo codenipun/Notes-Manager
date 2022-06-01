@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".createNoteActivity">
-
+    tools:context=".editNoteActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolBarOfEditText"
+        android:id="@+id/toolBarOfCreateNote"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white">
@@ -25,10 +24,10 @@
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
-        android:id="@+id/contentOfNote"
+        android:id="@+id/contentOfEditNote"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolBarOfEditText"
+        android:layout_below="@id/toolBarOfCreateNote"
         android:background="#E3E0E0"
         android:gravity="top|left"
         android:hint="Notes"
@@ -38,7 +37,7 @@
     </EditText>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/saveNote"
+        android:id="@+id/saveEditNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

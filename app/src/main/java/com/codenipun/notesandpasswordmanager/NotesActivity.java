@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +19,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,6 +92,8 @@ public class NotesActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull NoteViewHolder holder, int position, @NonNull firebasemodel model) {
 
+                ImageView popUpButton = holder.itemView.findViewById(R.id.menuPopUpBtn);
+
                 int colourCode = getRandomColor();
 
                 holder.mnote.setBackgroundColor(holder.itemView.getResources().getColor(colourCode, null));
@@ -99,7 +104,34 @@ public class NotesActivity extends AppCompatActivity {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Intent intent = new Intent(view.getContext(), noteDetailActivity.class);
+                        view.getContext().startActivity(intent);
                         Toast.makeText(NotesActivity.this, "item clicked", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                popUpButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        PopupMenu popupmenu = new PopupMenu(view.getContext(), view);
+                        popupmenu.setGravity(Gravity.END);
+                        popupmenu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                Intent intent = new Intent(view.getContext(), editNoteActivity.class);
+                                view.getContext().startActivity(intent);
+
+                                return false;
+                            }
+                        });
+                        popupmenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                Toast.makeText(view.getContext(), "Note Deleted Successfully", Toast.LENGTH_SHORT).show();
+                                return false;
+                            }
+                        });
+                        popupmenu.show();
                     }
                 });
             }
@@ -128,7 +160,7 @@ public class NotesActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if(notesAdapter!=null){
+        if(notesAdapter==null){
             notesAdapter.stopListening();
         }
     }
